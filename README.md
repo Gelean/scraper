@@ -1,4 +1,5 @@
 # Scraper
+
 Mickey mouse Python scraper for www.elderek.com
 
 ## Installation & Configuration
