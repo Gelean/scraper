@@ -1,7 +1,3 @@
-# https://www.python.org/downloads/
-# python -m pip install --upgrade pip
-# pip install requests BeautifulSoup4
-
 from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
