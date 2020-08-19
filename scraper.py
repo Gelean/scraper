@@ -1,7 +1,7 @@
 from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 # Functions taken from https://www.pybloggers.com/2018/01/practical-introduction-to-web-scraping-in-python/
 
@@ -50,6 +50,8 @@ raw_html = http_get('http://www.elderek.com/about.html')
 html = BeautifulSoup(raw_html, 'html.parser')
 #print(html)
 #print(len(html))
+
+"""
 for h1 in html.select('h1'):
     print("H1:", h1.text)
 for h2 in html.select('h2'):
@@ -58,3 +60,39 @@ for h3 in html.select('h3'):
     print("H3:", h3.text)
 for p in html.select('p'):
     print("p:", p.text)
+"""
+
+print("-----------")
+soup = BeautifulSoup(raw_html, 'html.parser')
+for toplevel in soup.find_all('h1'):
+    print(toplevel.text)
+    print("-----------")
+    for sibling in toplevel.next_siblings:
+        if not isinstance(sibling, Tag):
+            continue
+        if sibling.name == 'h1':
+            break
+        if sibling.name == 'h2':
+            print(sibling.text)
+            print("-----------")
+        if sibling.name == 'h3':
+            print(sibling.text)
+            print("-----------")
+        if sibling.name == 'p':
+            print(sibling.text)
+            print("-----------")
+        if sibling.name == 'div':
+            for child in sibling.findChildren():
+                if not isinstance(child, Tag):
+                    continue
+                if child.name == 'h1':
+                    break
+                if child.name == 'h2':
+                    print(child.text)
+                    print("-----------")
+                if child.name == 'h3':
+                    print(child.text)
+                    print("-----------")
+                if child.name == 'p':
+                    print(child.text)
+                    print("-----------")
