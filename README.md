@@ -9,3 +9,7 @@ Mickey mouse Python scraper for www.elderek.com
 1. python -m pip install --upgrade pip
 1. pip install requests BeautifulSoup4
 1. py scraper.py
+
+## Links and References
+
+* http://akul.me/blog/2016/beautifulsoup-cheatsheet/
