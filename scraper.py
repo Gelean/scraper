@@ -37,6 +37,11 @@ def http_get(url):
     except RequestException as e:
         log_error('Error during requests to {0} : {1}'.format(url, str(e)))
         return None
+        
+def parse_and_print(object):
+    if object.name == 'h1' or object.name == 'h2' or object.name == 'h3' or object.name == 'p':
+        print(object.text)
+        print("-----------")
 
 #raw_html = open('contrived.html').read()
 #html = BeautifulSoup(raw_html, 'html.parser')
@@ -65,34 +70,9 @@ for p in html.select('p'):
 print("-----------")
 soup = BeautifulSoup(raw_html, 'html.parser')
 for toplevel in soup.find_all('h1'):
-    print(toplevel.text)
-    print("-----------")
+    parse_and_print(toplevel)
     for sibling in toplevel.next_siblings:
-        if not isinstance(sibling, Tag):
-            continue
-        if sibling.name == 'h1':
-            break
-        if sibling.name == 'h2':
-            print(sibling.text)
-            print("-----------")
-        if sibling.name == 'h3':
-            print(sibling.text)
-            print("-----------")
-        if sibling.name == 'p':
-            print(sibling.text)
-            print("-----------")
+        parse_and_print(sibling)
         if sibling.name == 'div':
             for child in sibling.findChildren():
-                if not isinstance(child, Tag):
-                    continue
-                if child.name == 'h1':
-                    break
-                if child.name == 'h2':
-                    print(child.text)
-                    print("-----------")
-                if child.name == 'h3':
-                    print(child.text)
-                    print("-----------")
-                if child.name == 'p':
-                    print(child.text)
-                    print("-----------")
+                parse_and_print(child)
